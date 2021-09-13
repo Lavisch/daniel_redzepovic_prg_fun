@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Assignment1 : ProcessingLite.GP21
 {
-    float startX = 4;
-    float startY = 7;
+    public float startX = 4;
+    public float startY = 7;
 
-    float spacing = 1;
-    float letterWidth = 2;
-    float letterHeight = 4;
-    float strokeWidth = 2;
+    public float spacing = 1;
+    public float letterWidth = 2;
+    public float letterHeight = 4;
+    public float strokeWidth = 2;
     int r, g = 50, b = 100; //RGB values (0-255)
     
     int frameCount = 0;
