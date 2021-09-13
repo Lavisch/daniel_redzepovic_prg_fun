@@ -11,11 +11,12 @@ public class Assignment1 : ProcessingLite.GP21
     float letterWidth = 2;
     float letterHeight = 4;
     float strokeWidth = 2;
-    int r = 0, g = 50, b = 100; //RGB values (0-255)
+    int r, g = 50, b = 100; //RGB values (0-255)
     
-    int countFrames = 0; 
+    int frameCount = 0;
+    int stage = 0; //Controls animation stages (0-255), should not be changed
     int tickDelay = 5; //Higher tickDelay = slower animation
-    float animationMul = 2; //Higher animationMul = crazier animations
+    float animationMul = 1.5f; //Higher animationMul = crazier animations
 
     bool reverse = false;
 
@@ -30,21 +31,25 @@ public class Assignment1 : ProcessingLite.GP21
     // Update is called once per frame
     void Update()
     {
-        if (countFrames % tickDelay == 0)
+        if (frameCount % tickDelay == 0)
         {
             Animate();
+            frameCount = 0;
         }
-        countFrames++;
+        frameCount++;
     }
 
     private void Animate()
     {
-        if (r >= 255)
+        StrokeWeight(strokeWidth);
+        r = stage;
+
+        if (stage >= 255)
         {
             reverse = true;
         }
 
-        if (r <= 0)
+        if (stage <= 0)
         {
             reverse = false;
         }
@@ -52,24 +57,28 @@ public class Assignment1 : ProcessingLite.GP21
         if (reverse)
         {
             Background(r, g, b);
-            spacing -= animationMul / 1000;
-            startX += animationMul * (letterCount - 1) / 2 / 1000; //To compensate for spacing increase/decrease: * (letterCount - 1) / 2
+            spacing -= animationMul / 500;
+            startX += animationMul * (letterCount - 1) / 2 / 500; //To compensate for spacing increase/decrease: * (letterCount - 1) / 2
             strokeWidth -= animationMul / 50;
-            r--;
+            stage--;
         }
         else
         {
             Background(r, g, b);
-            spacing += animationMul / 1000;
-            startX -= animationMul * (letterCount - 1) / 2 / 1000;
+            spacing += animationMul / 500;
+            startX -= animationMul * (letterCount - 1) / 2 / 500;
             strokeWidth += animationMul / 50;
-            r++;
+            stage++;
         }
 
-        StrokeWeight(strokeWidth);
-
+        Fill(255 - r, 255 - g, 255 - b);
+        NoStroke();
+        Circle(MouseX, MouseY, (letterHeight + 5) * (stage + 128) / 255);
+        
         float x = startX;
         float y = startY;
+
+        Stroke(240, 240, 240);
 
         DrawD(x, y);
 
@@ -87,6 +96,7 @@ public class Assignment1 : ProcessingLite.GP21
 
         x += letterWidth + spacing;
         DrawL(x, y);
+
     }
 
     //Draws a vertical line down from pos x y
