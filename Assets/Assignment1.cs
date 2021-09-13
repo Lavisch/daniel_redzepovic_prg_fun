@@ -16,7 +16,7 @@ public class Assignment1 : ProcessingLite.GP21
     int frameCount = 0;
     int stage = 0; //Controls animation stages (0-255), should not be changed
     int tickDelay = 5; //Higher tickDelay = slower animation
-    float animationMul = 1.5f; //Higher animationMul = crazier animations
+    public float animationMul = 1.5f; //Higher animationMul = crazier animations
 
     bool reverse = false;
 
