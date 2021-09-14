@@ -6,11 +6,11 @@ public class Assignment2 : ProcessingLite.GP21
 {
     public int lines = 8;
     public float startX = 7;
-    public float endX = 8;
+    public float endX = 12;
     public float startY = 9;
     public float endY = 1;
-    public float offSetX = -4;
-    public float offSetY = 2;
+    public float cornerX = 6;
+    public float cornerY = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -20,17 +20,23 @@ public class Assignment2 : ProcessingLite.GP21
     // Update is called once per frame
     void Update()
     {
-        float spacingX = (startX - endX) / lines;
-        float spacingY = (startY - endY) / lines;
 
         Background(255, 255, 255);
 
         for (int i = 0; i < lines; i++)
         {
-            float offSetXStart = offSetX * i / lines;
-            float offSetXEnd = offSetX * (lines - i) / lines;
-            float offSetYStart = offSetY * i / lines;
-            float offSetYEnd = offSetY * (lines - i) / lines;
+            //Working code
+            /*
+            float offsetXStart = (cornerX - startX) * i / lines;
+            float offsetXEnd = (endX - cornerX) * i / lines;
+            float offsetYStart = (cornerY - startY) * i / lines;
+            float offsetYEnd = (endY - cornerY) * i / lines;
+            */
+
+            float offsetXStart = (cornerX - startX) * i / lines;
+            float offsetXEnd = (endX - cornerX) * (i + 1) / lines;
+            float offsetYStart = (cornerY - startY) * i / lines;
+            float offsetYEnd = (endY - cornerY) * (i + 1) / lines;
 
             if (i % 3 == 0)
             {
@@ -43,11 +49,15 @@ public class Assignment2 : ProcessingLite.GP21
 
             Line
             (
-                startX + offSetXStart,
-                startY - i * spacingY + offSetYStart,
-                startX + (i + 1) * spacingX + offSetXEnd,
-                endY + offSetYEnd
+                startX + offsetXStart,
+                startY + offsetYStart,
+                cornerX + offsetXEnd,
+                cornerY + offsetYEnd
             );
+            Circle(startX, startY, 0.2f);
+            Circle(cornerX, cornerY, 0.2f);
+            Circle(endX, endY, 0.2f);
+
         }
     }
 }

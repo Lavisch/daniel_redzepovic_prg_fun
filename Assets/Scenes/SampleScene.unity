@@ -267,7 +267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines: 8
   startX: 7
-  endX: 8
+  endX: 12
   startY: 9
   endY: 1
-  offSetX: -4
+  cornerX: 6
+  cornerY: 2
