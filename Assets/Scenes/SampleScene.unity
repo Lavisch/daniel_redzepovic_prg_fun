@@ -265,10 +265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3de02f3ca71ab489a95f971184811b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lines: 8
-  startX: 7
-  startY: 9
-  endX: 12
-  endY: 1
-  cornerX: 6
-  cornerY: 2
+  numberOfLines: 100
+  x1: 1
+  y1: 9
+  x2: 9
+  y2: 1
+  x3: 1
+  y3: 1

@@ -12,11 +12,12 @@ public class Assignment1 : ProcessingLite.GP21
     public float letterHeight = 4;
     public float strokeWidth = 2;
     int r, g = 50, b = 100; //RGB values (0-255)
-    
-    int frameCount = 0;
-    int stage = 0; //Controls animation stages (0-255), should not be changed
-    int tickDelay = 5; //Higher tickDelay = slower animation
+
+    int frameRate = 144;
+    int stage; //Controls animation stages (0-255)
     public float animationMul = 1.5f; //Higher animationMul = crazier animations
+    // int frameCount = 0;
+    // int tickDelay = 5; //Higher tickDelay = slower animation
 
     bool reverse = false;
 
@@ -25,18 +26,20 @@ public class Assignment1 : ProcessingLite.GP21
     // Start is called before the first frame update
     void Start()
     {
-
+        InvokeRepeating(nameof(Animate), 0, 1.0f / frameRate);
     }
    
     // Update is called once per frame
     void Update()
     {
+        /*
         if (frameCount % tickDelay == 0)
         {
             Animate();
             frameCount = 0;
         }
         frameCount++;
+        */
     }
 
     private void Animate()
