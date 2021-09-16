@@ -4,58 +4,58 @@ using UnityEngine;
 
 public class Assignment2 : ProcessingLite.GP21
 {
-    ParabolicCurve pc;
-    public int numberOfLines;
-    //Start coordinates
+    ParabolicCurve pc1, pc2, pc3, pc4;
+    //Corner pos
     public float x1;
     public float y1;
-    //End coordinates
+    //Opposite corner pos
     public float x2;
     public float y2;
-    //Corner coordinates
-    public float x3;
-    public float y3;
 
-    //Number of ticks per second
-    int tickRate = 30; 
+    public int numberOfLines;
+    public int strokeAlpha; //Stroke opacity (0-255)
+    int tickRate = 24; //Number of ticks per second
 
     // Start is called before the first frame update
     void Start()
     {
-        numberOfLines = 75;
-        x1 = 0;
-        y1 = Height;
-        x2 = Width;
-        y2 = Height;
-        x3 = Width / 2;
-        y3 = 0;
+        //Arbitrary starting properties
+        numberOfLines = 16;
+        strokeAlpha = 128;
 
-        pc = new ParabolicCurve(x1, y1, x2, y2, x3, y3, numberOfLines);
+        //Arbitrary corner starting pos
+        x1 = (Width - Height) / 2;
+        y1 = 0;
+        x2 = Width - (Width - Height) / 2;
+        y2 = Height;
+
+        pc1 = new ParabolicCurve();
+        pc2 = new ParabolicCurve();
+        pc3 = new ParabolicCurve();
+        pc4 = new ParabolicCurve();
+
         InvokeRepeating(nameof(Tick), 0, 1f / tickRate);
     }
 
+    // Tick is called tickRate times per second
     void Tick()
     {
-        MathCraft(pc);
-        pc.DrawParabolicCurve();
-        pc.x1 = x1;
-        pc.y1 = y1;
-        pc.x2 = x2;
-        pc.y2 = y2;
-        pc.x3 = x3;
-        pc.y3 = y3;
-        pc.numberOfLines = numberOfLines;
+        Background(0);
         
+        pc1.SetProperties(x1, y1, x1, y2, MouseX, MouseY, numberOfLines, strokeAlpha);
+        pc2.SetProperties(x2, y2, x1, y2, MouseX, MouseY, numberOfLines, strokeAlpha);
+        pc3.SetProperties(x2, y2, x2, y1, MouseX, MouseY, numberOfLines, strokeAlpha);
+        pc4.SetProperties(x1, y1, x2, y1, MouseX, MouseY, numberOfLines, strokeAlpha);
+
+        pc1.DrawParabolicCurve();
+        pc2.DrawParabolicCurve();
+        pc3.DrawParabolicCurve();
+        pc4.DrawParabolicCurve();
+        
+        pc1.ShiftColors();
+        pc2.ShiftColors();
+        pc3.ShiftColors();
+        pc4.ShiftColors();
     }
 
-    void MathCraft(ParabolicCurve pc)
-    {
-        int[] firstColor = pc.colors[0];
-        for (int i = 0; i < pc.colors.Length - 1; i++)
-        {
-            pc.colors[i] = pc.colors[i + 1];
-        }
-        pc.colors[pc.colors.Length - 1] = firstColor;
-
-    }
 }
