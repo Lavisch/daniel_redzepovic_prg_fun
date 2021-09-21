@@ -5,12 +5,13 @@ using UnityEngine;
 public class Circle : ProcessingLite.GP21
 {
     public Vector2 pos;
-    public Vector2 velocity;
+    public Vector2 vel;
+    public Vector2 acc;
 
-    private float r;
+    public float r;
     public int[] color;
-    public float maxSpeed = 10;
- 
+    public float maxSpeed = 1;
+
     public Circle()
     {
 
@@ -28,22 +29,53 @@ public class Circle : ProcessingLite.GP21
         Circle(pos.x, pos.y, r * 2);
     }
     
-    public void TeleportCircle(Vector2 pos)
+    public void Teleport(Vector2 pos)
     {
         this.pos = pos;
-        velocity *= 0;
+        vel *= 0;
     }
 
-    public void MoveCircle()
+    public void Move()
     {
-        pos +=  Vector2.ClampMagnitude(velocity * Time.deltaTime, maxSpeed);
+        vel = Vector2.ClampMagnitude(vel + acc * Time.deltaTime, maxSpeed);
+        pos += vel * Time.deltaTime;
+        acc *= 0;
+    }
+
+    public void ApplyForce(Vector2 f)
+    {
+        acc += acc * Time.deltaTime + f;
+    }
+
+    public void Bounce()
+    {
         if (pos.x > Width - r || pos.x < r)
         {
-            velocity.x *= -1;
+            vel.x *= -1;
         }
         if (pos.y > Height - r || pos.y < r)
         {
-            velocity.y *= -1;
+            vel.y *= -1;
+        }
+    }
+
+    public void BindToFrame()
+    {
+        if (pos.x > Width - r)
+        {
+            pos.x = Width - r;
+        }
+        if (pos.x < r)
+        {
+            pos.x = r;
+        }
+        if (pos.y > Height - r)
+        {
+            pos.y = Height - r;
+        }
+        if (pos.y < r)
+        {
+            pos.y = r;
         }
     }
 }

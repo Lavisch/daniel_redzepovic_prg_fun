@@ -37,14 +37,15 @@ public class Assignment3 : ProcessingLite.GP21
 
     void Update()
     {
-        c.MoveCircle();
+        c.Move();
+        c.Bounce();
         if (Input.GetMouseButtonDown(0))
         {
-            c.TeleportCircle(new Vector2(MouseX, MouseY));
+            c.Teleport(new Vector2(MouseX, MouseY));
         }
         if (Input.GetMouseButtonUp(0))
         {
-            c.velocity = (new Vector2(MouseX, MouseY) - c.pos);
+            c.vel = (new Vector2(MouseX, MouseY) - c.pos);
         }
     }
 }
