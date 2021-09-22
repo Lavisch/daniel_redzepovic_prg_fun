@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Used in Assignment 2
 public class ParabolicCurve : ProcessingLite.GP21
 {
     private int numberOfLines;

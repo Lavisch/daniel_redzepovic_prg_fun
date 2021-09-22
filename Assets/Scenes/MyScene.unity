@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
-  r: 0
-  circleColor: 
+  r: 0.5
+  color: ff000000ff000000ff000000
   maxSpeed: 10
 --- !u!114 &1430565049
 MonoBehaviour:
@@ -210,11 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f4fa68c6ffc92429051a28c67afa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 10
-  acc: 30
+  velocity: 10
+  acceleration: 50
   maxSpeed: 8
-  friction: 5
-  gravity: 10
+  friction: 10
+  gravity: 20
   gravityOn: 0
   frictionOn: 1
 --- !u!81 &1430565050

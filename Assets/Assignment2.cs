@@ -24,7 +24,7 @@ public class Assignment2 : ProcessingLite.GP21
         numberOfLines = 16;
         strokeAlpha = 128;
 
-        //Arbitrary corner starting pos
+        //Arbitrary opposite corners starting pos
         x1 = (Width - Height) / 2;
         y1 = 0;
         x2 = Width - (Width - Height) / 2;
