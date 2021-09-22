@@ -5,14 +5,13 @@ using UnityEngine;
 public class Assignment5 : ProcessingLite.GP21
 {
     Player myPlayer;
-    float r = 0.3f;
-
     Ball[] balls;
+    float r = 0.3f;
     int numberOfBalls = 10;
 
     float maxSpeed = 8;
-
     int frameRate = 60;
+    bool running;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +31,8 @@ public class Assignment5 : ProcessingLite.GP21
                 maxSpeed = this.maxSpeed
             };
         }
+        running = true;
+
         NoStroke();
         InvokeRepeating(nameof(Draw), 0, 1f / frameRate);
     }
@@ -39,11 +40,30 @@ public class Assignment5 : ProcessingLite.GP21
     // Update is called once per frame
     void Update()
     {
-        myPlayer.UpdatePos();
+        if (running)
+        {
+            Play();
+        }
+        else if (Input.anyKey)
+        {
+            Start();
+        }
+    }
+
+    void Play()
+    {
         myPlayer.Control(maxSpeed);
+        myPlayer.UpdatePos();
         for (int i = 0; i < balls.Length; i++)
         {
             balls[i].UpdatePos();
+        }
+        foreach (Ball ball in balls)
+        {
+            if (ball.Collision(myPlayer))
+            {
+                running = false;
+            }
         }
     }
 
@@ -55,8 +75,5 @@ public class Assignment5 : ProcessingLite.GP21
         {
             balls[i].Draw();
         }
-
     }
-
-
 }

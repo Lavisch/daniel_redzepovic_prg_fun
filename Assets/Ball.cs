@@ -41,6 +41,7 @@ public class Ball : ProcessingLite.GP21
     {
         vel = Vector2.ClampMagnitude(vel, maxSpeed);
         vel = Bounce(vel);
+        pos += vel * Time.deltaTime;
     }
 
     public Vector2 Bounce(Vector2 a)
@@ -54,5 +55,28 @@ public class Ball : ProcessingLite.GP21
             a.y *= -1;
         }
         return a;
+    }
+    
+    public bool Collision (Ball b)
+    {
+        float maxDistance = this.r + b.r;
+
+        //first a quick check to see if we are too far away in x or y direction
+        //if we are far away we don't collide so just return false and be done.
+        if (Mathf.Abs(this.pos.x - b.pos.x) > maxDistance || Mathf.Abs(this.pos.y - b.pos.y) > maxDistance)
+        {
+            return false;
+        }
+        //we then run the slower distance calculation
+        //Distance uses Pythagoras to get exact distance, if we still are to far away we are not colliding.
+        else if (Vector2.Distance(this.pos, b.pos) > maxDistance)
+        {
+            return false;
+        }
+        //We now know the points are closer then the distance so we are colliding!
+        else
+        {
+            return true;
+        }
     }
 }
