@@ -72,7 +72,7 @@ public class Assignment4 : ProcessingLite.GP21
 
     private void Control()
     {
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         c1.vel = direction * velocity;
         c2.ApplyForce(direction * acceleration);
