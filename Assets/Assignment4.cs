@@ -5,20 +5,34 @@ using UnityEngine;
 public class Assignment4 : ProcessingLite.GP21
 {
     Circle c1, c2;
-    float r = 0.5f;
-    float v = 5;
-    float a = 20;
-    float friction = 10;
+    float rad = 0.5f;
+
+    public float vel = 10;
+    public float acc = 30;
+    public float maxSpeed = 8;
+
+    public float friction = 5;
+    public float gravity = 10;
+
+    public bool gravityOn = false; //Press 'g' to toggle
+    public bool frictionOn = true; //Press 'f' to toggle
+
     int frameRate = 60;
 
     // Start is called before the first frame update
     void Start()
     {
-        c1 = new Circle(new Vector2(Width / 3, Height / 2), r);
-        c1.color = new int[] { 255, 0, 0};
+        c1 = new Circle(new Vector2(Width / 3, Height / 2), rad)
+        {
+            color = new int[] { 255, 0, 0 },
+            maxSpeed = maxSpeed
+        };
 
-        c2 = new Circle(new Vector2(Width / 3 * 2, Height / 2), r);
-        c2.color = new int[] { 0, 255, 0 };
+        c2 = new Circle(new Vector2(Width / 3 * 2, Height / 2), rad)
+        {
+            color = new int[] { 0, 255, 0 },
+            maxSpeed = maxSpeed
+        };
 
         NoStroke();
         InvokeRepeating(nameof(Draw), 0, 1f / frameRate);
@@ -29,69 +43,56 @@ public class Assignment4 : ProcessingLite.GP21
     {
         c1.Move();
         c2.Move();
-        c2.ApplyForce(c2.vel.normalized * -1 * friction);
-        c1.BindToFrame();
-        c2.BindToFrame();
+
+        if (gravityOn)
+        {
+            c2.ApplyForce(new Vector2(0, gravity * -1));
+        }
+        if (frictionOn)
+        {
+            c2.ApplyForce(-1 * friction * c2.vel.normalized);
+        }
+
+        c1.WrapXBounceY();
+        c2.WrapXBounceY();
+
         Control();
     }
 
     void Draw()
     {
         Background(0);
-        c1.DrawCircle();
-        c2.DrawCircle();
-        Debug.Log(c1.vel);
+
+        c1.Draw();
+        c2.Draw();
+
+        c1.PeekX();
+        c2.PeekX();
     }
 
     private void Control()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        c1.vel = dir * vel;
+        c2.ApplyForce(dir * acc);
+
+        if (gravityOn && Input.GetKeyDown(KeyCode.G))
         {
-            c1.vel.x += v;
+            gravityOn = false;
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        else if (!gravityOn && Input.GetKeyDown(KeyCode.G))
         {
-            c1.vel.x = 0;
+            gravityOn = true;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (frictionOn && Input.GetKeyDown(KeyCode.F))
         {
-            c2.ApplyForce(new Vector2(a, 0));
+            frictionOn = false;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (!frictionOn && Input.GetKeyDown(KeyCode.F))
         {
-            c1.vel.x -= v;
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            c1.vel.x = 0;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            c2.ApplyForce(new Vector2(-a, 0));
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            c1.vel.y += v;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            c1.vel.y = 0;
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            c2.ApplyForce(new Vector2(0, a));
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            c1.vel.y -= v;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            c1.vel.y = 0;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            c2.ApplyForce(new Vector2(0, -a));
+            frictionOn = true;
+
         }
     }
 }

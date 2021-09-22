@@ -5,10 +5,9 @@ using UnityEngine;
 public class Assignment3 : ProcessingLite.GP21
 {
     Circle c;
-    
     public Vector2 pos; //Starting pos
-    public float r; //Circle radius
-    public int[] circleColor;
+    public float r = 0.5f; //Circle radius
+    public int[] circleColor = new int[] { 255, 255, 255 };
     public float maxSpeed = 10;
 
     int frameRate = 60;
@@ -17,11 +16,11 @@ public class Assignment3 : ProcessingLite.GP21
     void Start()
     {
         pos = new Vector2 (Width / 2, Height / 2);
-        r = 1;
-        circleColor = new int[] { 255, 255, 255 };
 
         c = new Circle(pos, r);
         c.color = circleColor;
+        c.maxSpeed = maxSpeed;
+
         InvokeRepeating(nameof(Draw), 0, 1.0f / frameRate);
     }
 
@@ -32,7 +31,7 @@ public class Assignment3 : ProcessingLite.GP21
         {
             Line(c.pos.x, c.pos.y, MouseX, MouseY);
         }
-        c.DrawCircle();
+        c.Draw();
     }
 
     void Update()
