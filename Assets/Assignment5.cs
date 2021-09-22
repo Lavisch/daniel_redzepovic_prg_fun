@@ -10,7 +10,7 @@ public class Assignment5 : ProcessingLite.GP21
     Ball[] balls;
     int numberOfBalls = 10;
 
-    public float maxSpeed = 8;
+    float maxSpeed = 8;
 
     int frameRate = 60;
 

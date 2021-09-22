@@ -2,33 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : ProcessingLite.GP21
+public class Player : Ball
 {
-    public Vector2 pos;
-    public Vector2 vel;
-
-    public float r;
-    public int[] color;
-    public float maxSpeed = 5;
-
-    public Player()
+    public Player(Vector2 pos, float r) : base(pos, r)
     {
-
-    }
-
-    public Player(Vector2 pos, float r)
-    {
-        this.pos = pos;
         this.r = r;
+        this.pos = pos;
     }
 
-    public void Draw()
-    {
-        Fill(color[0], color[1], color[2]);
-        Circle(pos.x, pos.y, r * 2);
-    }
-
-    public void UpdatePos()
+    public override void UpdatePos()
     {
         vel = Vector2.ClampMagnitude(vel, maxSpeed);
         pos += vel * Time.deltaTime;

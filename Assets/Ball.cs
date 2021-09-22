@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //We still need to inherence from ProcessingLite
-class Ball : ProcessingLite.GP21
+public class Ball : ProcessingLite.GP21
 {
     //Our class variables
-    Vector2 pos; //Ball position
-    Vector2 vel; //Ball direction
+    public Vector2 pos; //Ball position
+    public Vector2 vel; //Ball direction
 
     public float maxSpeed = 5;
-    private float r = 0.5f;
+    public float r = 0.5f;
     public int[] color = new int[] { 255, 255, 255 };
 
     //Ball Constructor, called when we type new Ball(x, y);
@@ -37,9 +37,9 @@ class Ball : ProcessingLite.GP21
     }
 
     //Update our ball
-    public void UpdatePos()
+    public virtual void UpdatePos()
     {
-        pos += vel * Time.deltaTime;
+        vel = Vector2.ClampMagnitude(vel, maxSpeed);
         vel = Bounce(vel);
     }
 
