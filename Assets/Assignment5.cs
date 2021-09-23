@@ -4,37 +4,29 @@ using UnityEngine;
 
 public class Assignment5 : ProcessingLite.GP21
 {
-    Player myPlayer;
-    Ball[] balls;
-    float r = 0.3f;
-    int numberOfBalls = 10;
+    Player player;
+    public float playerRadius = 0.5f;
+    
+    public BallManager ballManager;
+    public int numberOfBalls = 10;
+    public float ballRadius = 0.3f;
 
-    float maxSpeed = 8;
     int frameRate = 60;
     bool running;
 
     // Start is called before the first frame update
     void Start()
     {
-        myPlayer = new Player(new Vector2(Width / 3, Height / 2), r)
-        {
-            color = new int[] { 255, 0, 0 },
-            maxSpeed = this.maxSpeed
-        };
-        
-        balls = new Ball[numberOfBalls];
-        for (int i = 0; i < balls.Length; i++)
-        {
-            balls[i] = new Ball(new Vector2(Width / 2, Height / 2), r)
-            {
-                color = new int[] {255, 255, 255},
-                maxSpeed = this.maxSpeed
-            };
-        }
-        running = true;
+        player = new Player(new Vector2(Width / 2, Height / 2), playerRadius);
+        player.color = new int[] { 255, 0, 0 };
 
+        ballManager = new BallManager(numberOfBalls, ballRadius, player);
+        
         NoStroke();
         InvokeRepeating(nameof(Draw), 0, 1f / frameRate);
+        InvokeRepeating(nameof(AddOneBall), 3, 3);
+
+        running = true;
     }
 
     // Update is called once per frame
@@ -52,28 +44,30 @@ public class Assignment5 : ProcessingLite.GP21
 
     void Play()
     {
-        myPlayer.Control(maxSpeed);
-        myPlayer.UpdatePos();
-        for (int i = 0; i < balls.Length; i++)
+        player.Control();
+        player.UpdatePos();
+        ballManager.UpdatePos();
+
+        //Look for collision and end round if found
+        for (int i = 0; i < ballManager.balls.Count; i++)
         {
-            balls[i].UpdatePos();
-        }
-        foreach (Ball ball in balls)
-        {
-            if (ball.Collision(myPlayer))
+            if (ballManager.Collision(ballManager.balls[i], player))
             {
                 running = false;
+                CancelInvoke();
             }
         }
+    }
+
+    void AddOneBall()
+    {
+        ballManager.AddBalls(1, ballRadius, player);
     }
 
     void Draw()
     {
         Background(0);
-        myPlayer.Draw();
-        for (int i = 0; i < balls.Length; i++)
-        {
-            balls[i].Draw();
-        }
+        player.Draw();
+        ballManager.Draw();
     }
 }

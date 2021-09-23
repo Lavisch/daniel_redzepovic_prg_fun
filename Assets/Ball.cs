@@ -9,26 +9,17 @@ public class Ball : ProcessingLite.GP21
     public Vector2 pos; //Ball position
     public Vector2 vel; //Ball direction
 
-    public float maxSpeed = 5;
-    public float r = 0.5f;
+    public float speed;
+    public float r;
     public int[] color = new int[] { 255, 255, 255 };
 
-    //Ball Constructor, called when we type new Ball(x, y);
-    public Ball(Vector2 pos, float r)
+    //Ball Constructor, called when we type new Ball(pos);
+    public Ball(Vector2 pos, float r = 0.3f, float speed = 8)
     {
-        //Set our position when we create the code.
-        this.r = r;
         this.pos = pos;
-
-        //Create the velocity vector and give it a random direction.
-        vel = new Vector2
-        {
-            x = Random.Range(-5, 6),
-            y = Random.Range(-5, 6)
-        };
-        vel = vel.normalized * maxSpeed;
+        this.r = r;
+        this.speed = speed;
     }
-
     //Draw our ball
     public void Draw()
     {
@@ -39,44 +30,23 @@ public class Ball : ProcessingLite.GP21
     //Update our ball
     public virtual void UpdatePos()
     {
-        vel = Vector2.ClampMagnitude(vel, maxSpeed);
-        vel = Bounce(vel);
+        Bounce();
+        if (vel.magnitude > speed)
+        {
+            vel = vel.normalized * speed;
+        }
         pos += vel * Time.deltaTime;
     }
 
-    public Vector2 Bounce(Vector2 a)
+    public void Bounce()
     {
         if (pos.x > Width - r || pos.x < r)
         {
-            a.x *= -1;
+            vel.x *= -1;
         }
         if (pos.y > Height - r || pos.y < r)
         {
-            a.y *= -1;
-        }
-        return a;
-    }
-    
-    public bool Collision (Ball b)
-    {
-        float maxDistance = this.r + b.r;
-
-        //first a quick check to see if we are too far away in x or y direction
-        //if we are far away we don't collide so just return false and be done.
-        if (Mathf.Abs(this.pos.x - b.pos.x) > maxDistance || Mathf.Abs(this.pos.y - b.pos.y) > maxDistance)
-        {
-            return false;
-        }
-        //we then run the slower distance calculation
-        //Distance uses Pythagoras to get exact distance, if we still are to far away we are not colliding.
-        else if (Vector2.Distance(this.pos, b.pos) > maxDistance)
-        {
-            return false;
-        }
-        //We now know the points are closer then the distance so we are colliding!
-        else
-        {
-            return true;
+            vel.y *= -1;
         }
     }
 }

@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508a49cc57f36e549b099698ff9c2951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 10
-  acceleration: 50
-  maxSpeed: 8
+  playerRadius: 0.5
+  ballManager: {fileID: 0}
+  numberOfBalls: 10
+  ballRadius: 0.8
