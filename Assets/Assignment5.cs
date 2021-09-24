@@ -9,7 +9,6 @@ public class Assignment5 : ProcessingLite.GP21
     
     public BallManager ballManager;
     public int numberOfBalls = 10;
-    public float ballRadius = 0.3f;
 
     int frameRate = 60;
     bool running;
@@ -17,10 +16,10 @@ public class Assignment5 : ProcessingLite.GP21
     // Start is called before the first frame update
     void Start()
     {
-        player = new Player(new Vector2(Width / 2, Height / 2), playerRadius);
+        player = new Player(new Vector2(Width / 2, Height / 2));
         player.color = new int[] { 255, 0, 0 };
 
-        ballManager = new BallManager(numberOfBalls, ballRadius, player);
+        ballManager = new BallManager(numberOfBalls, player);
         
         NoStroke();
         InvokeRepeating(nameof(Draw), 0, 1f / frameRate);
@@ -33,13 +32,9 @@ public class Assignment5 : ProcessingLite.GP21
     void Update()
     {
         if (running)
-        {
             Play();
-        }
         else if (Input.anyKey)
-        {
             Start();
-        }
     }
 
     void Play()
@@ -61,13 +56,13 @@ public class Assignment5 : ProcessingLite.GP21
 
     void AddOneBall()
     {
-        ballManager.AddBalls(1, ballRadius, player);
+        ballManager.AddBalls(1, player);
     }
 
     void Draw()
     {
         Background(0);
         player.Draw();
-        ballManager.Draw();
+        ballManager.DrawBalls();
     }
 }

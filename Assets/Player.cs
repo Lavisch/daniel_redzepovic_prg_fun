@@ -8,11 +8,6 @@ public class Player : Ball
     {
         this.pos = pos;
     }
-    public Player(Vector2 pos, float r) : base(pos, r)
-    {
-        this.pos = pos;
-        this.r = r;
-    }
 
     public override void UpdatePos()
     {

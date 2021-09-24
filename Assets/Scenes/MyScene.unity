@@ -298,4 +298,4 @@ MonoBehaviour:
   playerRadius: 0.5
   ballManager: {fileID: 0}
   numberOfBalls: 10
-  ballRadius: 0.8
+  ballRadius: 0.3

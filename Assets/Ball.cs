@@ -9,9 +9,9 @@ public class Ball : ProcessingLite.GP21
     public Vector2 pos; //Ball position
     public Vector2 vel; //Ball direction
 
-    public float speed;
-    public float r;
-    public int[] color = new int[] { 255, 255, 255 };
+    public float speed = 8;
+    public float r = 0.3f;
+    public int[] color = { 255, 255, 255 };
 
     //Ball Constructor, called when we type new Ball(pos);
     public Ball(Vector2 pos, float r = 0.3f, float speed = 8)
@@ -20,6 +20,12 @@ public class Ball : ProcessingLite.GP21
         this.r = r;
         this.speed = speed;
     }
+   
+    public Ball()
+    {
+
+    }
+
     //Draw our ball
     public void Draw()
     {
@@ -32,21 +38,15 @@ public class Ball : ProcessingLite.GP21
     {
         Bounce();
         if (vel.magnitude > speed)
-        {
             vel = vel.normalized * speed;
-        }
         pos += vel * Time.deltaTime;
     }
 
     public void Bounce()
     {
         if (pos.x > Width - r || pos.x < r)
-        {
             vel.x *= -1;
-        }
         if (pos.y > Height - r || pos.y < r)
-        {
             vel.y *= -1;
-        }
     }
 }
