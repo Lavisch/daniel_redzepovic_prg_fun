@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class Assignment5 : ProcessingLite.GP21
     void Start()
     {
         player = new Player(new Vector2(Width / 2, Height / 2));
-        player.color = new int[] { 255, 0, 0 };
+        player.color = new int[] { 0, 255, 0 };
 
         ballManager = new BallManager(numberOfBalls, player);
         
@@ -33,8 +34,23 @@ public class Assignment5 : ProcessingLite.GP21
     {
         if (running)
             Play();
-        else if (Input.anyKey)
-            Start();
+        else
+        { 
+            DrawGameOver();
+            if (Input.anyKey)
+                Start();
+        }
+    }
+
+    private void DrawGameOver()
+    {
+        float stretch = 0.8f;
+
+        Background(0);
+        StrokeWeight(5);
+        Stroke(255, 0, 0);
+        Line(Width * stretch, Height * stretch, Width - Width * stretch, Height - Height * stretch);
+        Line(Width * stretch, Height - Height * stretch, Width - Width * stretch, Height * stretch);
     }
 
     void Play()
