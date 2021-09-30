@@ -42,17 +42,6 @@ public class Assignment5 : ProcessingLite.GP21
         }
     }
 
-    private void DrawGameOver()
-    {
-        float stretch = 0.8f;
-
-        Background(0);
-        StrokeWeight(5);
-        Stroke(255, 0, 0);
-        Line(Width * stretch, Height * stretch, Width - Width * stretch, Height - Height * stretch);
-        Line(Width * stretch, Height - Height * stretch, Width - Width * stretch, Height * stretch);
-    }
-
     void Play()
     {
         player.Control();
@@ -80,5 +69,16 @@ public class Assignment5 : ProcessingLite.GP21
         Background(0);
         player.Draw();
         ballManager.DrawBalls();
+    }
+
+    private void DrawGameOver()
+    {
+        float stretch = 0.8f;
+
+        Background(0);
+        StrokeWeight(8);
+        Stroke(255, 0, 0);
+        Line(Width * stretch, Height * stretch, Width - Width * stretch, Height - Height * stretch);
+        Line(Width * stretch, Height - Height * stretch, Width - Width * stretch, Height * stretch);
     }
 }

@@ -134,11 +134,14 @@ GameObject:
   - component: {fileID: 1430565052}
   - component: {fileID: 1430565051}
   - component: {fileID: 1430565050}
+  - component: {fileID: 1430565055}
   - component: {fileID: 1430565046}
   - component: {fileID: 1430565047}
   - component: {fileID: 1430565048}
   - component: {fileID: 1430565049}
   - component: {fileID: 1430565053}
+  - component: {fileID: 1430565054}
+  - component: {fileID: 1430565056}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -290,7 +293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430565045}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 508a49cc57f36e549b099698ff9c2951, type: 3}
   m_Name: 
@@ -298,4 +301,40 @@ MonoBehaviour:
   playerRadius: 0.5
   ballManager: {fileID: 0}
   numberOfBalls: 10
-  ballRadius: 0.3
+--- !u!114 &1430565054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430565045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e63555a6fa2e44295c5d65e3aa465b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1430565055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430565045}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffde6f34fbdb8c9428b3c9bcdc17eca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visitedSpots: []
+--- !u!114 &1430565056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430565045}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62ecb1e44a01a74a8cde5cb97cca9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
