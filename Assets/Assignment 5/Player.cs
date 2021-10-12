@@ -6,19 +6,19 @@ public class Player : Ball
 {
     public Player(Vector2 pos) : base(pos)
     {
-        this.pos = pos;
+        this.position = pos;
     }
 
     public override void UpdatePos()
     {
-        vel = Vector2.ClampMagnitude(vel, speed);
-        pos += vel * Time.deltaTime;
-        pos = new Vector2(Mathf.Clamp(pos.x, r, Width - r), Mathf.Clamp(pos.y, r, Height - r));
+        velocity = Vector2.ClampMagnitude(velocity, speed);
+        position += velocity * Time.deltaTime;
+        position = new Vector2(Mathf.Clamp(position.x, radius, Width - radius), Mathf.Clamp(position.y, radius, Height - radius));
     }
 
     public void Control()
     {
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        vel = direction * speed;
+        velocity = direction * speed;
     }
 }

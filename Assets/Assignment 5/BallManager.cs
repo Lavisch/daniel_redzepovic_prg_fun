@@ -18,17 +18,17 @@ public class BallManager : ProcessingLite.GP21
         {
             //Create a ball with random position
             Ball ball = new Ball();
-            Vector2 pos = new Vector2(Random.Range(ball.r, Width - ball.r), Random.Range(ball.r, Height - ball.r));
-            ball.pos = pos;
+            float x = Random.Range(ball.radius, Width - ball.radius);
+            float y = Random.Range(ball.radius, Height - ball.radius);
+            Vector2 pos = new Vector2(x, y);
+            ball.position = pos;
 
-            //Check if a ball would not collide with player if created at pos
             if (Collision(ball, player))
                 i--;
             else
             {
                 ball.color = color;
-                //Set ball velocity in opposite direction in relation to player pos
-                ball.vel = (player.pos - pos).normalized * -1 * ball.speed;
+                ball.velocity = (player.position - pos).normalized * -1 * ball.speed; //Set ball velocity opposite to player pos
                 balls.Add(ball);
             }
         }
@@ -48,17 +48,14 @@ public class BallManager : ProcessingLite.GP21
 
     public bool Collision(Ball ball1, Ball ball2)
     {
-        float maxDistance = ball1.r + ball2.r;
+        float maxDistance = ball1.radius + ball2.radius;
 
-        //first a quick check to see if we are too far away in x or y direction
-        //if we are far away we don't collide so just return false and be done.
-        if (Mathf.Abs(ball1.pos.x - ball2.pos.x) > maxDistance || Mathf.Abs(ball1.pos.y - ball2.pos.y) > maxDistance)
+        if (Mathf.Abs(ball1.position.x - ball2.position.x) > maxDistance || Mathf.Abs(ball1.position.y - ball2.position.y) > maxDistance)
             return false;
-        //we then run the slower distance calculation
-        //Distance uses Pythagoras to get exact distance, if we still are to far away we are not colliding.
-        else if (Vector2.Distance(ball1.pos, ball2.pos) > maxDistance)
+
+        else if (Vector2.Distance(ball1.position, ball2.position) > maxDistance)
             return false;
-        //We now know the points are closer then the distance so we are colliding!
+
         else
             return true;
     }

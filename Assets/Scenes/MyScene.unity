@@ -325,7 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffde6f34fbdb8c9428b3c9bcdc17eca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visitedSpots: []
 --- !u!114 &1430565056
 MonoBehaviour:
   m_ObjectHideFlags: 0

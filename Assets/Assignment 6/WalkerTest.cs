@@ -29,12 +29,9 @@ public class WalkerTest : ProcessingLite.GP21
 
 	void Update()
 	{
-        if (Input.anyKeyDown)
-        {
-			//Draw the walker
-			Circle(walkerPos.x * scaleFactor, walkerPos.y * scaleFactor, scaleFactor);
-			//Get the new movement from the walker.
-			walkerPos += walker.Movement();
-        }
+		//Draw the walker
+		Circle(walkerPos.x * scaleFactor, walkerPos.y * scaleFactor, scaleFactor);
+		//Get the new movement from the walker.
+		walkerPos += walker.Movement();
 	}
 }
